@@ -10,13 +10,7 @@ export default function MovieCard({ id, title, poster_path, vote_average }) {
   const { user } = useUser();
   const { toggleBookmark, isBookmarked } = useBookmarks();
 
-  const numericRating =
-    typeof vote_average === "number"
-      ? vote_average
-      : vote_average
-      ? Number(vote_average)
-      : 0;
-
+  const numericRating = Number(vote_average);
   const displayRating =
     Number.isFinite(numericRating) && numericRating > 0
       ? numericRating.toFixed(1)
@@ -58,6 +52,7 @@ export default function MovieCard({ id, title, poster_path, vote_average }) {
       {/* 북마크 버튼 */}
       <Button
         onClick={handleBookmark}
+        aria-label="bookmark"
         className={`absolute top-2 right-2 px-2 py-1 rounded-full text-sm font-bold transition
           ${
             isBookmarked(id)
